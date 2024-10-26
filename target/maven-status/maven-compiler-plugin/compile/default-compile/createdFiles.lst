@@ -8,6 +8,7 @@ com\mycompany\drturnosgui\TurnosGUI.class
 com\mycompany\drturnosgui\TurnosGUI$1.class
 com\mycompany\drturnosgui\TurnosGUI$5.class
 com\mycompany\drturnosgui\Turno.class
+com\mycompany\drturnosgui\ObrasSocialesGUI$1.class
 com\mycompany\drturnosgui\AgregarClienteGUI.class
 com\mycompany\drturnosgui\ModificarClienteGUI.class
 com\mycompany\drturnosgui\TurnosGUI$4.class
