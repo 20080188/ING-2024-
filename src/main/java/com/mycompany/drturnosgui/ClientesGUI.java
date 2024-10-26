@@ -1,18 +1,36 @@
 
 
 package com.mycompany.drturnosgui;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Set;
+import javax.swing.table.DefaultTableModel;
 /**
  * Interfaz grafica de los pacientes 
  * @author usuario
  */
 public class ClientesGUI extends javax.swing.JFrame {
-
+    
+    //Sets para guardar clientes y obras sociales
+    private Set<Cliente> clientes;
+    private Set<ObraSocial> obrasSociales;  
+    //Modelo de tabla
+    private DefaultTableModel model;
+    
     /**
-     * Creates new form ClientesGUI
+     * Constructor de ClientesGUI
+     * @param clientes
+     * @param obrasSociales
      */
     public ClientesGUI(Set<Cliente> clientes, Set<ObraSocial> obrasSociales) {
+        this.clientes = clientes;
+        this.obrasSociales = obrasSociales;
         initComponents();
+        
+        loadTableData();
+
     }
 
     /**
@@ -25,28 +43,153 @@ public class ClientesGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblClientes = new javax.swing.JTable();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "DNI", "Nombre", "Telefono", "Obra social"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+
+        btnEliminar.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(215, 215, 215)
+                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminar)
+                .addContainerGap(235, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo llamado al presionar el boton "Agregar"
+     * @param evt 
+     */
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        AgregarClienteGUI agregarClienteGUI = new AgregarClienteGUI(clientes, obrasSociales, this);
+        agregarClienteGUI.setVisible(true);
+        agregarClienteGUI.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+    /**
+     * Metodo llamado al cerrar la ventana
+     * @param evt 
+     */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        GuardarHashSet();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
+
+    //METODOS
+    
+    /**
+     * Metodo para cargar la informacion de los clientes almacenados en el Set clientes en la tabla
+     */
+    private void loadTableData() {
+        DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+        if (model.getRowCount() > 0) {
+            model.setRowCount(0);
+        }
+        for (Cliente cliente : clientes) {
+           model.addRow(new Object[]{cliente.getDni(), cliente.getNombre(), cliente.getTelefono(), cliente.getObraSocial()});
+        }
+    }
+    
+    /**
+     * Metodo para actualizar los datos de la tabla al agregar un cliente
+     */
+    public void actualizarTabla() {
+        loadTableData(); // Recargar datos en la tabla
+    }
+    
+    /**
+     * Metodo para guardar el Set clientes en el archivo clientes.ser 
+     */
+    public void GuardarHashSet(){
+        guardarHashSet(clientes, "clientes.ser");
+    }
+    
+    /**
+     * Metodo para guardar un HashSet en un archivo
+     * @param set, set que guarda
+     * @param fileName, nombre del archivo donde se guarda
+     */
+    private void guardarHashSet(Set<? extends Serializable> set, String fileName) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(set);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

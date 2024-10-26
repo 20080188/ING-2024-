@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class TurnosGUI extends javax.swing.JFrame {
     
-    //Sets para guardas turnos, clientes y obras sociales
+    //Sets para guardar turnos, clientes y obras sociales
     private Set<String> turnosSet = new HashSet<>();
     public static Set<Cliente> clientes = new HashSet<>();
     public static Set<ObraSocial> obrasSociales = new HashSet<>();
