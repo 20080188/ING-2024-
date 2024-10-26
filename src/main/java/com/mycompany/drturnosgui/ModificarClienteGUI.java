@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.drturnosgui;
 
+
 /**
- *
+ * Interfaz grafica para modificar los atributos de un paciente
  * @author usuario
  */
 public class ModificarClienteGUI extends javax.swing.JFrame {

@@ -1,21 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package com.mycompany.drturnosgui;
 
+package com.mycompany.drturnosgui;
+import java.util.Iterator;
 import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Interfaz grafica de obras sociales 
  * @author usuario
  */
 public class ObrasSocialesGUI extends javax.swing.JFrame {
-    
     private Set<ObraSocial> obrasSociales;
-
+    private DefaultTableModel model;
+    private JTable table;
+    
     /**
-     * Creates new form ObrasSocialesGUI
+     * Constructor de ObrasSocialesGUI
+     * @param obrasSociales 
      */
     public ObrasSocialesGUI(Set<ObraSocial> obrasSociales) {
         this.obrasSociales = obrasSociales;
@@ -38,10 +40,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_agregar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -72,30 +73,54 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 400));
 
-        jButton1.setText("Agregar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
+        btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, -1, -1));
 
-        jButton2.setText("Modificar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 420, -1, -1));
+        btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, -1, -1));
 
-        jButton3.setText("Eliminar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, -1, -1));
-
-        jButton4.setText("Cerrar");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 420, -1, -1));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 420, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        // TODO add your handling code here:
+        agregarObraSocial();
+    }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_modificar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -116,5 +141,111 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+    
+    
+    /**
+     * Metodo que permite agregar una obra social
+     */
+    private void agregarObraSocial(){
+        String input = JOptionPane.showInputDialog(null, "Ingrese la obra social a agregar:");
+        
+        if (input != null && !input.isEmpty()){
+            ObraSocial nuevaObraSocial = new ObraSocial(input);
+            
+            /**
+             * Convertir la obra social a minúsculas (o mayúsculas) 
+             * para hacer la comparación insensible a mayúsculas/minúsculas
+             */
+            
+            String obraSocialLowercase = nuevaObraSocial.getObraSocial().toLowerCase();
+            
+            if(!obraSocialExists(obraSocialLowercase)){
+                obrasSociales.add(new ObraSocial(obraSocialLowercase));
+                loadTableData();
+            }
+        }else{
+            showError("La obra social ya existe.");
+        }
+    }
+    
+    /**
+     * Metodo para cargar la informacion a la tabla
+     */
+    void loadTableData(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if(model.getRowCount() > 0){
+            model.setRowCount(0);
+        }
+        
+        for(ObraSocial obraSocial : obrasSociales){
+            model.addRow(new Object[]{obraSocial.getObraSocial()});
+        }
+    }
+    
+    /**
+     * Metodo que muestra el error en pantalla
+     * @param message, mensaje que va a mostrar por pantalla 
+     */
+    private void showError(String message){
+        JOptionPane.showMessageDialog(this, message, "Error" , JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
+    /**
+     * Metodo que permite modificar una obra social ingresada
+     */
+    private void modificarObraSocial(){
+        int selectedRow = table.getSelectedRow();
+        
+        if(selectedRow != -1){
+            String obraSocial = model.getValueAt(selectedRow, 0).toString();
+            if(!obraSocial.equals("Particular")){
+                String input = JOptionPane.showInputDialog(null, "Ingrese la nueva obra social:", obraSocial);
+                ObraSocial nuevaObraSocial = new ObraSocial(input);
+                
+                if(input != null && !input.isEmpty() && !obrasSociales.contains(nuevaObraSocial)){
+                    eliminarObraSocial(obraSocial);
+                    obrasSociales.add(nuevaObraSocial);
+                }
+            }else{
+                showError("No se puede modificar la obra social 'Particular'");
+            }
+        }
+    }
+    
+    /**
+     * Metodo que permite eliminar la obra social seleccionada en la tabla
+     */
+    private void eliminarObraSocialSeleccionada(){  
+        int selectedRow = table.getSelectedRow();
+        
+        if(selectedRow !=-1){
+            String obraSocial = model.getValueAt(selectedRow, 0).toString();
+            if(!obraSocial.equals("Particular")){
+                model.setValueAt("", selectedRow, 0);
+                eliminarObraSocial(obraSocial);
+            }else{
+                showError("No se puede eliminar la obra social 'Particular'");
+            }
+        }else{
+            showError("Selecciona una obra social para eliminar");
+        }
+    }
+    
+    
+    /**
+     * Metodo que permite eliminar una obra social
+     */
+    private void eliminarObraSocial(String obraSocial){
+        Iterator<ObraSocial> iterator = obrasSociales.iterator();
+        while(iterator.hasNext()){
+            ObraSocial obra = iterator.next();
+            if (obra.getObraSocial().equals(obraSocial)){
+                iterator.remove();
+                break;
+            }
+        }
+        loadTableData();
     }
 }
