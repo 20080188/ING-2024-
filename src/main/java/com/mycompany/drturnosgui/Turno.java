@@ -1,5 +1,9 @@
 package com.mycompany.drturnosgui;
-    // Clase turnos representa un turno y sus atributos
+
+/**
+ * Clase Turno y representa a un turno y sus atributos
+ * @author Isaias
+ */
 public class Turno extends Cliente {
    private String fecha;
    private String hora;

@@ -121,7 +121,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnObrasSociales" max="32767" attributes="0"/>
-                          <Component id="btnAgregarTurno" alignment="0" pref="138" max="32767" attributes="0"/>
+                          <Component id="btnAgregarTurno" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnEliminarTurno" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnPacientes" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -158,6 +158,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Obras sociales"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnObrasSocialesActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAgregarTurno">
               <Properties>

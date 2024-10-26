@@ -89,6 +89,11 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
 
         btnObrasSociales.setText("Obras sociales");
+        btnObrasSociales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrasSocialesActionPerformed(evt);
+            }
+        });
 
         btnAgregarTurno.setText("Agregar/Modificar");
         btnAgregarTurno.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +112,7 @@ public class TurnosGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnObrasSociales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(btnAgregarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -142,6 +147,13 @@ public class TurnosGUI extends javax.swing.JFrame {
         clientesGUI.setVisible(true);
         clientesGUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnPacientesActionPerformed
+
+    private void btnObrasSocialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrasSocialesActionPerformed
+        // TODO add your handling code here:
+        ObrasSocialesGUI obrasocialesGUI = new ObrasSocialesGUI(obrasSociales);
+        obrasocialesGUI.setVisible(true);
+        obrasocialesGUI.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnObrasSocialesActionPerformed
 
     public static void main(String args[]) {
 
