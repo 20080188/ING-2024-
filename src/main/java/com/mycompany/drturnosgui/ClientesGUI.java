@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  * Interfaz grafica de los pacientes 
@@ -84,6 +85,11 @@ public class ClientesGUI extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
 
@@ -138,6 +144,20 @@ public class ClientesGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblClientes.getSelectedRow();
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+            ModificarClienteGUI modificarClienteGUI = new ModificarClienteGUI(obrasSociales, clientes, model, selectedRow);
+            modificarClienteGUI.setVisible(true);
+            dispose();
+        } else {
+           showError("Selecciona un cliente para modificar.");
+        }
+        loadTableData();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
@@ -169,6 +189,13 @@ public class ClientesGUI extends javax.swing.JFrame {
         loadTableData(); // Recargar datos en la tabla
     }
     
+    /**
+     * Metodo que muestra el error en pantalla
+     * @param message, mensaje que va a mostrar por pantalla
+     */
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
     /**
      * Metodo para guardar el Set clientes en el archivo clientes.ser 
      */

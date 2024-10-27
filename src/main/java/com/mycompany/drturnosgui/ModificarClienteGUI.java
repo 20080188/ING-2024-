@@ -1,18 +1,42 @@
 
 package com.mycompany.drturnosgui;
 
+import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  * Interfaz grafica para modificar los atributos de un paciente
  * @author usuario
  */
 public class ModificarClienteGUI extends javax.swing.JFrame {
-
+    private Set<ObraSocial> obrasSociales;
+    private Set<Cliente> clientes;
+    private DefaultTableModel model;
+    private int selectedRow;
+    
     /**
      * Creates new form ModificarClienteGUI
      */
-    public ModificarClienteGUI() {
+    public ModificarClienteGUI(Set<ObraSocial> obrasSociales, Set<Cliente> clientes,DefaultTableModel model, int selectedRow) {
+        this.obrasSociales = obrasSociales;
+        this.clientes = clientes;
+        this.model = model;
+        this.selectedRow = selectedRow;
+        
         initComponents();
+        
+        //Agregar las obras sociales cargadas al combo box
+        for (ObraSocial obraSocial : obrasSociales) {
+             obraSocialComboBox.addItem(obraSocial.getObraSocial());
+        }
+        
+        //Toma los valores de la fila seleccionada (datos del cliente seleccionado) 
+        //y los asigna a los campos de texto de la interfaz
+        campoDni.setText((String) model.getValueAt(selectedRow, 0));
+        campoNombre.setText((String) model.getValueAt(selectedRow, 1));
+        campoTelefono.setText((String) model.getValueAt(selectedRow, 2));
     }
 
     /**
@@ -24,24 +48,198 @@ public class ModificarClienteGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        campoDni = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        campoNombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        campoTelefono = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        obraSocialComboBox = new javax.swing.JComboBox<>();
+        btnGuardar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+
+        jLabel1.setText("DNI:");
+
+        jLabel2.setText("Nombre:");
+
+        jLabel3.setText("Teléfono:");
+
+        jLabel4.setText("Obra social:");
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(obraSocialComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 388, Short.MAX_VALUE)
+                    .addComponent(campoTelefono, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campoNombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(campoDni, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGuardar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(obraSocialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGuardar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        modificarCliente();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JTextField campoDni;
+    private javax.swing.JTextField campoNombre;
+    private javax.swing.JTextField campoTelefono;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> obraSocialComboBox;
     // End of variables declaration//GEN-END:variables
+
+//Metodos
+    
+    /**
+     * Metodo para actualizar los datos en el Set y la tabla
+     */
+    private void modificarCliente() {
+        String dni = campoDni.getText();
+        String nombre = campoNombre.getText();
+        String telefono = campoTelefono.getText();
+        String obraSocial = (String) obraSocialComboBox.getSelectedItem();
+
+        //Validar DNI: Debe contener solo numeros
+        if (!dni.matches("\\d+")) {
+        showError("El DNI debe contener solo números.");
+        return;
+        }
+
+        // Validación de Nombre: No debe contener números
+        if (nombre.matches(".*\\d.*")) {
+        showError("El Nombre no debe contener números.");
+        return;
+        }
+
+
+        // Validación de Teléfono: Solo permite números
+         if (!telefono.matches("\\d+")) {
+            showError("El Teléfono debe contener solo números.");
+            return;
+        }  
+        
+         // Obtiene el DNI actual del cliente seleccionado
+        String dniActual = (String) model.getValueAt(selectedRow, 0);
+
+        // Verifica que el nuevo dni ingresado no esté ya en el Set, si ya esta cargado muestra un mensaje de error
+        if (!dniActual.equals(dni)) {
+            for (Cliente clienteExistente : clientes) {
+                if (clienteExistente.getDni().equals(dni)) {
+                    showError("Ya existe un cliente registrado con el mismo DNI."); 
+                    return;
+                }
+            }
+        }   
+
+        // Realizar la modificación en el Set después de las validaciones
+        if (isAlphanumeric(nombre) && isAlphanumeric(telefono)) {
+            for (Cliente cliente : clientes) {
+                if (cliente.getDni().equals(dniActual)){
+                    cliente.setDni(dni);
+                    cliente.setNombre(nombre);
+                    cliente.setTelefono(telefono);
+                    cliente.setObraSocial(obraSocial);
+                    break;
+                }
+            }    
+        } else {
+            if (!isAlphanumeric(nombre)) {
+                showError("El nombre solo puede contener letras");
+                return;
+            }
+            if (!isAlphanumeric(telefono)) {
+                showError("El telefono solo puede contener numeros");
+                return;
+            }
+        }
+        
+            /*model.setValueAt(dni, selectedRow, 0);
+            model.setValueAt(nombre, selectedRow, 1);
+            model.setValueAt(telefono, selectedRow, 2);
+            model.setValueAt(obraSocial, selectedRow, 3);*/
+            ClientesGUI cli = new ClientesGUI(clientes, obrasSociales);
+            cli.setVisible(true);
+            dispose();
+        }
+
+    /**
+     * Metodo que muestra el error en pantalla
+     * @param message, mensaje que va a mostrar por pantalla
+     */
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * Verifica si contiene solo caracteres alfanumericos
+     * @param str
+     * @return 
+     */
+    public boolean isAlphanumeric(String str){
+
+        char[] charArray = str.toCharArray();
+        for(char c:charArray)
+        {
+            if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c))
+                return false;
+        }
+        return true;
+    }
+    
 }
