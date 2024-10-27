@@ -1,5 +1,9 @@
 
 package com.mycompany.drturnosgui;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -26,6 +30,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         }
         
         initComponents();
+        loadTableData();
     }
 
     /**
@@ -46,6 +51,11 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -114,6 +124,12 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        GuardarHashSet();
+        dispose();
+    }//GEN-LAST:event_formWindowClosing
 
 
 
@@ -247,5 +263,21 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
             }
         }
         loadTableData();
+    }
+    
+    public void GuardarHashSet(){
+        guardarHashSet(obrasSociales, "obrasSociales.ser");
+    }
+    
+    private void guardarHashSet(Set<? extends Serializable> set, String fileName){
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(set);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
