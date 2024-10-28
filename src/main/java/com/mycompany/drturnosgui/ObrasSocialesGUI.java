@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -42,8 +43,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_obra_social = new javax.swing.JTable();
-        btn_agregar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
+        btn_salir = new javax.swing.JButton();
+        btn_agregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -71,35 +73,44 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 400));
 
-        btn_agregar.setText("Agregar");
-        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 130, -1));
-
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 420, 150, -1));
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, 130, -1));
+
+        btn_salir.setText("Salir");
+        btn_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 150, -1));
+
+        btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 130, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        // TODO add your handling code here:
-        agregarObraSocial();
-    }//GEN-LAST:event_btn_agregarActionPerformed
-
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
+        eliminarObraSocialSeleccionada();
     }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
+        // TODO add your handling code here:
+        Salir();
+    }//GEN-LAST:event_btn_salirActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
@@ -107,11 +118,18 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        // TODO add your handling code here:
+        agregarObraSocial();
+        
+    }//GEN-LAST:event_btn_agregarActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_salir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_obra_social;
@@ -202,6 +220,49 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
             objectOutputStream.close();
         } catch (IOException e){
             e.printStackTrace();
+        }
+    }
+    /**
+     * Metodo que elimina una obra social
+     * @param obraSocial, es el nombre de la obrasocial que vamos a eliminar
+     */
+    private void eliminarObraSocial(String obraSocial){
+        Iterator<ObraSocial> iterator = obrasSociales.iterator();
+        while (iterator.hasNext()){
+            ObraSocial obra = iterator.next();
+            if (obra.getObraSocial().equals(obraSocial)){
+                iterator.remove();
+                break;
+            }
+        }
+        loadTableData();
+    }
+    /**
+     * Metodo para cerra la ventana de ObrasSocialesGUI
+     */
+    private void Salir(){
+        GuardarHashSet();
+        dispose();
+    }
+    /**
+     * Metodo que elimina la obra social que nosotros seleccionemos
+     * haciendo click en la fila
+     */
+    private void eliminarObraSocialSeleccionada(){
+        DefaultTableModel model = (DefaultTableModel) tbl_obra_social.getModel();
+        
+        int selectedRow = tbl_obra_social.getSelectedRow();
+        
+        if(selectedRow != -1){
+            String obraSocial = model.getValueAt(selectedRow, 0).toString();
+            if (!obraSocial.equals("Particular")){
+                model.setValueAt("", selectedRow, 0);
+                eliminarObraSocial(obraSocial);
+            }else{
+                showError("No se puede eliminar la obra social 'Particular'");
+            }
+        }else{
+            showError("Selecciona una obra social para eliminar.");
         }
     }
 }
