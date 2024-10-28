@@ -1,6 +1,6 @@
 
-package com.mycompany.drturnosgui;
 
+package com.mycompany.drturnosgui;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +26,7 @@ public class TurnosGUI extends javax.swing.JFrame {
         btnObrasSociales = new javax.swing.JButton();
         btnAgregarTurno = new javax.swing.JButton();
         btnEliminarTurno = new javax.swing.JButton();
+        btn_cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -105,6 +106,13 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         btnEliminarTurno.setText("Eliminar");
 
+        btn_cerrar.setText("Cerrar");
+        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -115,7 +123,8 @@ public class TurnosGUI extends javax.swing.JFrame {
                     .addComponent(btnObrasSociales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_cerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -129,6 +138,8 @@ public class TurnosGUI extends javax.swing.JFrame {
                 .addComponent(btnAgregarTurno)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEliminarTurno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_cerrar)
                 .addContainerGap())
         );
 
@@ -156,6 +167,11 @@ public class TurnosGUI extends javax.swing.JFrame {
         obrasocialesGUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnObrasSocialesActionPerformed
 
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btn_cerrarActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -172,6 +188,7 @@ public class TurnosGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarTurno;
     private javax.swing.JButton btnObrasSociales;
     private javax.swing.JButton btnPacientes;
+    private javax.swing.JButton btn_cerrar;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTurnos;

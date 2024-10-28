@@ -125,6 +125,7 @@
                           <Component id="btnAgregarTurno" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnEliminarTurno" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnPacientes" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btn_cerrar" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -141,6 +142,8 @@
                       <Component id="btnAgregarTurno" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnEliminarTurno" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btn_cerrar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -175,6 +178,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_cerrar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cerrar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cerrarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

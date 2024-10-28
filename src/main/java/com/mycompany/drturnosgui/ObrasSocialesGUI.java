@@ -44,8 +44,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_obra_social = new javax.swing.JTable();
         btn_eliminar = new javax.swing.JButton();
-        btn_salir = new javax.swing.JButton();
+        btn_cerrar = new javax.swing.JButton();
         btn_agregar = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -65,7 +66,15 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
             new String [] {
                 "Nombre"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbl_obra_social);
         if (tbl_obra_social.getColumnModel().getColumnCount() > 0) {
             tbl_obra_social.getColumnModel().getColumn(0).setResizable(false);
@@ -79,15 +88,15 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 btn_eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 420, 130, -1));
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 130, -1));
 
-        btn_salir.setText("Salir");
-        btn_salir.addActionListener(new java.awt.event.ActionListener() {
+        btn_cerrar.setText("Cerrar");
+        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_salirActionPerformed(evt);
+                btn_cerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 150, -1));
+        jPanel1.add(btn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 420, 150, -1));
 
         btn_agregar.setText("Agregar");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +104,15 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 btn_agregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 130, -1));
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 130, -1));
+
+        btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 150, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 470));
 
@@ -107,10 +124,10 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         eliminarObraSocialSeleccionada();
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
-    private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
         // TODO add your handling code here:
         Salir();
-    }//GEN-LAST:event_btn_salirActionPerformed
+    }//GEN-LAST:event_btn_cerrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
@@ -124,12 +141,19 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_agregarActionPerformed
 
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+        ModificarObraSocial();
+        loadTableData();
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_eliminar;
-    private javax.swing.JButton btn_salir;
+    private javax.swing.JButton btn_modificar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_obra_social;
@@ -263,6 +287,30 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
             }
         }else{
             showError("Selecciona una obra social para eliminar.");
+        }
+    }
+    
+    /**
+     * Metodo para modificar una obra social
+     */
+    private void ModificarObraSocial(){
+        DefaultTableModel model = (DefaultTableModel) tbl_obra_social.getModel();
+        int selectedRow = tbl_obra_social.getSelectedRow(); 
+        
+        if(selectedRow != -1){
+            String obraSocial = model.getValueAt(selectedRow, 0).toString();
+            if (!obraSocial.equals("Particular")){
+                String input = JOptionPane.showInputDialog(null, "Ingrese la nueva obra social:", obraSocial);
+                ObraSocial nuevaObraSocial = new ObraSocial(input);
+                if (input != null && !input.isEmpty() && !obrasSociales.contains(nuevaObraSocial)){
+                    eliminarObraSocial(obraSocial);
+                    obrasSociales.add(nuevaObraSocial);
+                }
+            }else{
+                showError("No se puede modificar la obra social 'Particular'");
+            }
+        }else{
+            showError("Seleccione una obra social");
         }
     }
 }
