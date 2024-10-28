@@ -63,7 +63,7 @@ public class ModificarClienteGUI extends javax.swing.JFrame {
 
         jLabel1.setText("DNI:");
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Nombre y apellido:");
 
         jLabel3.setText("Teléfono:");
 

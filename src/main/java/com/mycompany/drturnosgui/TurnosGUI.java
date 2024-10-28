@@ -1,19 +1,28 @@
-
-
 package com.mycompany.drturnosgui;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class TurnosGUI extends javax.swing.JFrame {
     
-    //Sets para guardar turnos, clientes y obras sociales
-    private Set<String> turnosSet = new HashSet<>();
+    //Sets para guardar turnos, clientes y obras sociales:
+    private final Set<String> turnosSet = new HashSet<>();
     public static Set<Cliente> clientes = new HashSet<>();
     public static Set<ObraSocial> obrasSociales = new HashSet<>();
-    
+    private JTable table;
+    private DefaultTableModel model;
+        
     public TurnosGUI() {
         initComponents();
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -176,11 +185,46 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                LoginGUI loginGUI = new LoginGUI();
+                loginGUI.setVisible(true);
+                loginGUI.setLocationRelativeTo(null);
                 TurnosGUI turnosGUI = new TurnosGUI();
                 turnosGUI.setVisible(true);
                 turnosGUI.setLocationRelativeTo(null);
             }
         });
+    }
+    
+    // Carga los datos del archivo .txt a la tabla:
+    private void loadTableData() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(", ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+                LocalDate fecha = LocalDate.parse(fields[0], formatter);
+                LocalDate now = LocalDate.now();
+
+                if (fields.length == 1) {
+                    if (!fecha.isBefore(now)) {
+                        model.addRow(fields);
+                    }
+                }
+
+                if (fields.length >= 2) {
+                    if (!fecha.isBefore(now)) {
+                        model.addRow(fields);
+                        String hora = fields[1];
+                        String turnoKey = fecha + ", " + hora;
+                        turnosSet.add(turnoKey);
+                    }
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPrincipal;
