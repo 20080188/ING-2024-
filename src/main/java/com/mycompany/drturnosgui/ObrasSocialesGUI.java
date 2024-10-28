@@ -4,10 +4,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,9 +13,9 @@ import javax.swing.table.DefaultTableModel;
  * @author usuario
  */
 public class ObrasSocialesGUI extends javax.swing.JFrame {
-    private Set<ObraSocial> obrasSociales;
-    private DefaultTableModel model;
-    private JTable table;
+    
+    private Set<ObraSocial> obrasSociales; //
+    private DefaultTableModel tableModel; //Modelo de la tabla
     
     /**
      * Constructor de ObrasSocialesGUI
@@ -28,7 +26,6 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         if(!obraSocialExists("Particular")){
             this.obrasSociales.add(new ObraSocial("Particular"));
         }
-        
         initComponents();
         loadTableData();
     }
@@ -44,9 +41,8 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_obra_social = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
-        btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -60,25 +56,17 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_obra_social.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null}
             },
             new String [] {
                 "Nombre"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
+        ));
+        jScrollPane1.setViewportView(tbl_obra_social);
+        if (tbl_obra_social.getColumnModel().getColumnCount() > 0) {
+            tbl_obra_social.getColumnModel().getColumn(0).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 400));
@@ -89,15 +77,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 btn_agregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, -1, -1));
-
-        btn_modificar.setText("Modificar");
-        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_modificarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, -1, -1));
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 420, 130, -1));
 
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +85,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 btn_eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 420, -1, -1));
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 420, 150, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 470));
 
@@ -119,11 +99,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
+        int fila = tbl_obra_social.getSelectedRow();
+        tableModel.removeRow(fila);
     }//GEN-LAST:event_btn_eliminarActionPerformed
-
-    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
@@ -136,10 +114,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
-    private javax.swing.JButton btn_modificar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_obra_social;
     // End of variables declaration//GEN-END:variables
 
     
@@ -158,7 +135,6 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         }
         return false;
     }
-    
     
     /**
      * Metodo que permite agregar una obra social
@@ -189,7 +165,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
      * Metodo para cargar la informacion a la tabla
      */
     void loadTableData(){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbl_obra_social.getModel();
         if(model.getRowCount() > 0){
             model.setRowCount(0);
         }
@@ -207,68 +183,18 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, message, "Error" , JOptionPane.ERROR_MESSAGE);
     }
     
-    
     /**
-     * Metodo que permite modificar una obra social ingresada
+     * Metodo que guarda las obras sociales en el archivo "obrasSociales.ser"
      */
-    private void modificarObraSocial(){
-        int selectedRow = table.getSelectedRow();
-        
-        if(selectedRow != -1){
-            String obraSocial = model.getValueAt(selectedRow, 0).toString();
-            if(!obraSocial.equals("Particular")){
-                String input = JOptionPane.showInputDialog(null, "Ingrese la nueva obra social:", obraSocial);
-                ObraSocial nuevaObraSocial = new ObraSocial(input);
-                
-                if(input != null && !input.isEmpty() && !obrasSociales.contains(nuevaObraSocial)){
-                    eliminarObraSocial(obraSocial);
-                    obrasSociales.add(nuevaObraSocial);
-                }
-            }else{
-                showError("No se puede modificar la obra social 'Particular'");
-            }
-        }
-    }
-    
-    /**
-     * Metodo que permite eliminar la obra social seleccionada en la tabla
-     */
-    private void eliminarObraSocialSeleccionada(){  
-        int selectedRow = table.getSelectedRow();
-        
-        if(selectedRow !=-1){
-            String obraSocial = model.getValueAt(selectedRow, 0).toString();
-            if(!obraSocial.equals("Particular")){
-                model.setValueAt("", selectedRow, 0);
-                eliminarObraSocial(obraSocial);
-            }else{
-                showError("No se puede eliminar la obra social 'Particular'");
-            }
-        }else{
-            showError("Selecciona una obra social para eliminar");
-        }
-    }
-    
-    
-    /**
-     * Metodo que permite eliminar una obra social
-     */
-    private void eliminarObraSocial(String obraSocial){
-        Iterator<ObraSocial> iterator = obrasSociales.iterator();
-        while(iterator.hasNext()){
-            ObraSocial obra = iterator.next();
-            if (obra.getObraSocial().equals(obraSocial)){
-                iterator.remove();
-                break;
-            }
-        }
-        loadTableData();
-    }
-    
     public void GuardarHashSet(){
         guardarHashSet(obrasSociales, "obrasSociales.ser");
     }
     
+    /**
+     * Metodo para guardar un HashSet en un archivo
+     * @param set, que se va a guardar 
+     * @param fileName , nombre del archivo y tambien indicando el formato
+     */
     private void guardarHashSet(Set<? extends Serializable> set, String fileName){
         try{
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
