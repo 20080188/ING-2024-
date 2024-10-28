@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -92,6 +93,11 @@ public class ClientesGUI extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,6 +164,11 @@ public class ClientesGUI extends javax.swing.JFrame {
         loadTableData();
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        limpiarCamposSeleccionados();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
@@ -217,6 +228,39 @@ public class ClientesGUI extends javax.swing.JFrame {
             objectOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+     /**
+     * Metodo para eliminar un paciente
+     * @param dni
+     */
+    private void eliminarCliente(String dni) {
+        Iterator<Cliente> iterator = clientes.iterator();
+        while (iterator.hasNext()) {
+            Cliente cliente = iterator.next();
+            if (cliente.getDni().equals(dni)) {
+                iterator.remove();
+                break;
+            }
+        }
+        loadTableData();
+    }
+
+
+
+    private void limpiarCamposSeleccionados(){
+        int selectedRow = tblClientes.getSelectedRow();
+        if (selectedRow != -1){
+            DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
+            String dni = model.getValueAt(selectedRow, 0).toString();
+            model.setValueAt("", selectedRow, 0);
+            model.setValueAt("", selectedRow, 1);
+            model.setValueAt("", selectedRow, 2);
+            model.setValueAt("", selectedRow, 3);
+            
+            eliminarCliente(dni);
+        }else{
+            showError("Selecciona un cliente para limpiar los campos.");
         }
     }
 }
