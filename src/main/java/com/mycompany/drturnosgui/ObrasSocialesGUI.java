@@ -99,8 +99,6 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        int fila = tbl_obra_social.getSelectedRow();
-        tableModel.removeRow(fila);
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
