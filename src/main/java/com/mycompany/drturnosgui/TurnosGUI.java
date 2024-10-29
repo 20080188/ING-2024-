@@ -21,6 +21,8 @@ public class TurnosGUI extends javax.swing.JFrame {
         
     public TurnosGUI() {
         initComponents();
+        model = (DefaultTableModel) tblTurnos.getModel();
+        loadTableData();
     }
     
     @SuppressWarnings("unchecked")
@@ -45,36 +47,7 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         tblTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Fecha", "Horario", "Paciente", "DNI", "Obra social", "Telefono", "Motivo"
@@ -195,14 +168,16 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
     }
     
-    // Carga los datos del archivo .txt a la tabla:
+    /**
+     * Carga los datos del archivo .txt (turnos) a la tabla
+     */
     private void loadTableData() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(", ");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate fecha = LocalDate.parse(fields[0], formatter);
                 LocalDate now = LocalDate.now();
 
