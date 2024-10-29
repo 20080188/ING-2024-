@@ -18,18 +18,12 @@ public class TurnosGUI extends javax.swing.JFrame {
     public static Set<ObraSocial> obrasSociales = new HashSet<>();
     private JTable table;
     private DefaultTableModel model;
-    
-    /**
-     * Constructor de TurnosGUI
-     */
+        
     public TurnosGUI() {
         initComponents();
-        model = (DefaultTableModel) tblTurnos.getModel();
-        loadTableData();
     }
     
     @SuppressWarnings("unchecked")
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -51,10 +45,39 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         tblTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Hora", "DNI", "Nombre", "Telefono", "Obra social", "Motivo"
+                "Fecha", "Horario", "Paciente", "DNI", "Obra social", "Telefono", "Motivo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -91,11 +114,6 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
 
         btnEliminarTurno.setText("Eliminar");
-        btnEliminarTurno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarTurnoActionPerformed(evt);
-            }
-        });
 
         btn_cerrar.setText("Cerrar");
         btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,62 +158,36 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    /**
-     * Metodo llamado al presionar el boton agregar/modificar
-     * @param evt 
-     */
+
     private void btnAgregarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTurnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarTurnoActionPerformed
-    
-    /**
-     * Metodo llamado al presionar el boton pacientes
-     * @param evt 
-     */
+
     private void btnPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacientesActionPerformed
         ClientesGUI clientesGUI = new ClientesGUI(clientes, obrasSociales);
         clientesGUI.setVisible(true);
         clientesGUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnPacientesActionPerformed
-    
-    /**
-     * Metodo llamado al presionar el boton obras sociles
-     * @param evt 
-     */
+
     private void btnObrasSocialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrasSocialesActionPerformed
         // TODO add your handling code here:
         ObrasSocialesGUI obrasocialesGUI = new ObrasSocialesGUI(obrasSociales);
         obrasocialesGUI.setVisible(true);
         obrasocialesGUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnObrasSocialesActionPerformed
-   
-    /**
-     * Metodo llamado al presionar el boton cerrar 
-     * @param evt 
-     */
+
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btn_cerrarActionPerformed
-    
-    /**
-     * Metodo llamado al presionar el boton eliminar
-     * @param evt 
-     */
-    private void btnEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTurnoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarTurnoActionPerformed
 
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //Crea la ventana loginGUI y la hace visible
                 LoginGUI loginGUI = new LoginGUI();
                 loginGUI.setVisible(true);
                 loginGUI.setLocationRelativeTo(null);
-                
-                //Crea la ventana turnosGUI y la hace visible
                 TurnosGUI turnosGUI = new TurnosGUI();
                 turnosGUI.setVisible(true);
                 turnosGUI.setLocationRelativeTo(null);
@@ -203,16 +195,14 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
     }
     
-    /**
-     * Carga los datos del archivo .txt (turnos) a la tabla
-     */
+    // Carga los datos del archivo .txt a la tabla:
     private void loadTableData() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(", ");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
                 LocalDate fecha = LocalDate.parse(fields[0], formatter);
                 LocalDate now = LocalDate.now();
 
