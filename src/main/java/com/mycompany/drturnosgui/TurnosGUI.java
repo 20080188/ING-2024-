@@ -42,6 +42,7 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         PanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblTurnos.setBackground(new java.awt.Color(204, 204, 255));
         tblTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -87,10 +88,14 @@ public class TurnosGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblTurnos.setSurrendersFocusOnKeystroke(true);
         jScrollPane2.setViewportView(tblTurnos);
 
         PanelPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 550, 570));
 
+        jPanel3.setBackground(new java.awt.Color(153, 204, 255));
+
+        btnPacientes.setBackground(new java.awt.Color(204, 204, 255));
         btnPacientes.setText("Pacientes");
         btnPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +103,7 @@ public class TurnosGUI extends javax.swing.JFrame {
             }
         });
 
+        btnObrasSociales.setBackground(new java.awt.Color(204, 204, 255));
         btnObrasSociales.setText("Obras sociales");
         btnObrasSociales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +111,7 @@ public class TurnosGUI extends javax.swing.JFrame {
             }
         });
 
+        btnAgregarTurno.setBackground(new java.awt.Color(204, 204, 255));
         btnAgregarTurno.setText("Agregar/Modificar");
         btnAgregarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,8 +119,10 @@ public class TurnosGUI extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarTurno.setBackground(new java.awt.Color(204, 204, 255));
         btnEliminarTurno.setText("Eliminar");
 
+        btn_cerrar.setBackground(new java.awt.Color(204, 204, 255));
         btn_cerrar.setText("Cerrar");
         btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +160,7 @@ public class TurnosGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 550));
+        PanelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 570));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 570));
 

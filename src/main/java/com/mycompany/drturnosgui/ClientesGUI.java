@@ -60,6 +60,10 @@ public class ClientesGUI extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+
+        jScrollPane1.setBackground(new java.awt.Color(204, 204, 255));
+
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -78,6 +82,7 @@ public class ClientesGUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblClientes);
 
+        btnAgregar.setBackground(new java.awt.Color(204, 204, 255));
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +90,7 @@ public class ClientesGUI extends javax.swing.JFrame {
             }
         });
 
+        btnModificar.setBackground(new java.awt.Color(204, 204, 255));
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +98,7 @@ public class ClientesGUI extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(204, 204, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -57,6 +57,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tbl_obra_social.setModel(new javax.swing.table.DefaultTableModel(
@@ -82,6 +83,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 400));
 
+        btn_eliminar.setBackground(new java.awt.Color(204, 204, 255));
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +92,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 130, -1));
 
+        btn_cerrar.setBackground(new java.awt.Color(204, 204, 255));
         btn_cerrar.setText("Cerrar");
         btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +101,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 420, 150, -1));
 
+        btn_agregar.setBackground(new java.awt.Color(204, 204, 255));
         btn_agregar.setText("Agregar");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +110,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 130, -1));
 
+        btn_modificar.setBackground(new java.awt.Color(204, 204, 255));
         btn_modificar.setText("Modificar");
         btn_modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
