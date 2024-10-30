@@ -208,9 +208,6 @@ public class TurnosGUI extends javax.swing.JFrame {
                 LoginGUI loginGUI = new LoginGUI();
                 loginGUI.setVisible(true);
                 loginGUI.setLocationRelativeTo(null);
-                TurnosGUI turnosGUI = new TurnosGUI();
-                turnosGUI.setVisible(true);
-                turnosGUI.setLocationRelativeTo(null);
             }
         });
     }
