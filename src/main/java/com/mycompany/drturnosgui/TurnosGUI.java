@@ -1,12 +1,20 @@
 package com.mycompany.drturnosgui;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JTable;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TurnosGUI extends javax.swing.JFrame {
@@ -15,8 +23,9 @@ public class TurnosGUI extends javax.swing.JFrame {
     private final Set<String> turnosSet = new HashSet<>();
     public static Set<Cliente> clientes = new HashSet<>();
     public static Set<ObraSocial> obrasSociales = new HashSet<>();
-    private JTable table;
+    //private JTable table;
     private DefaultTableModel model;
+     
         
     public TurnosGUI() {
         initComponents();
@@ -53,7 +62,7 @@ public class TurnosGUI extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -86,6 +95,11 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
 
         btnEliminarTurno.setText("Eliminar");
+        btnEliminarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarTurnoActionPerformed(evt);
+            }
+        });
 
         btn_cerrar.setText("Cerrar");
         btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +147,16 @@ public class TurnosGUI extends javax.swing.JFrame {
 
     private void btnAgregarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTurnoActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblTurnos.getModel();
+        int selectedRow = tblTurnos.getSelectedRow();
+        if(selectedRow != -1){
+            ModificarTurnosGUI modificarTurnoGUI = new ModificarTurnosGUI(model, selectedRow, clientes, obrasSociales);
+            modificarTurnoGUI.setVisible(true);
+            modificarTurnoGUI.setLocationRelativeTo(null);
+        }else{
+            showError("Selecciona un turno para modificar.");
+        }
+        
     }//GEN-LAST:event_btnAgregarTurnoActionPerformed
 
     private void btnPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacientesActionPerformed
@@ -153,6 +177,11 @@ public class TurnosGUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_cerrarActionPerformed
 
+    private void btnEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTurnoActionPerformed
+        // TODO add your handling code here:
+        limpiarCamposSeleccionados();
+    }//GEN-LAST:event_btnEliminarTurnoActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -167,9 +196,56 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
     }
     
-    /**
-     * Carga los datos del archivo .txt (turnos) a la tabla
-     */
+        // Borra los campos de la tabla
+    private void limpiarCamposSeleccionados() {
+        int selectedRow = tblTurnos.getSelectedRow();
+
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) tblTurnos.getModel();
+            String fecha = model.getValueAt(selectedRow, 0).toString();
+            String hora = model.getValueAt(selectedRow, 1).toString();
+            String dni = model.getValueAt(selectedRow, 2).toString();
+            
+            model.setValueAt("", selectedRow, 2); // DNI
+            model.setValueAt("", selectedRow, 3); // Nombre
+            model.setValueAt("", selectedRow, 4); // Teléfono
+            model.setValueAt("", selectedRow, 5); // Obra Social
+            model.setValueAt("", selectedRow, 6); // Motivo
+            
+            eliminarTurnoEnArchivo(fecha, hora, dni);
+            
+        } else {
+            showError("Selecciona un turno para limpiar los campos.");
+        }
+    }
+    
+        // Borra los campos de la tabla en el archivo 
+    private void eliminarTurnoEnArchivo(String fecha, String hora, String dni) {
+       try {
+           BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
+           String line;
+           StringBuilder fileContent = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+               String[] fields = line.split(", ");
+               if (fields.length < 3 || !fecha.equals(fields[0]) || !hora.equals(fields[1]) || !dni.equals(fields[2])) {
+                   fileContent.append(line).append("\n");
+               } else {
+                   // Crear una nueva línea con los primeros dos campos y el resto en blanco
+                   String newLine = fields[0] + ", " + fields[1] + ", , , , , ";
+                   fileContent.append(newLine).append("\n");
+               }
+            }
+           br.close();
+
+           Files.write(Paths.get("turnos.txt"), fileContent.toString().getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+           loadTableData();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+    }
+    
+        // Carga los datos del archivo a la tabla
     private void loadTableData() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
@@ -199,6 +275,55 @@ public class TurnosGUI extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    private void guardarHashSet(Set<? extends Serializable> set, String fileName) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(set);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private <T extends Serializable> Set<T> cargarHashSet(String fileName) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(fileName);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            Set<T> setDeserializado = (Set<T>) objectInputStream.readObject();
+            objectInputStream.close();
+            return setDeserializado;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public void CargarHashSets(){
+        clientes = cargarHashSet("clientes.ser");
+        if (clientes == null) {
+            clientes = new HashSet<>();
+        }
+        obrasSociales = cargarHashSet("obrasSociales.ser");
+        if (obrasSociales == null) {
+            obrasSociales = new HashSet<>();
+        }
+    }
+    
+    public void GuardarHashSets(){
+        guardarHashSet(obrasSociales, "obrasSociales.ser");
+        guardarHashSet(clientes, "clientes.ser");
+    }
+    
+    public DefaultTableModel copiarTabla(){
+        DefaultTableModel model = (DefaultTableModel) tblTurnos.getModel();
+        return model;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPrincipal;
