@@ -19,19 +19,33 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
     private Set<Cliente> clientes;
     
 
-
+    /**
+     * Constructor ModificarTurnosGUI
+     * @param model
+     * @param selectedRow
+     * @param clientes
+     * @param obrasSociales 
+     */
     public ModificarTurnosGUI(DefaultTableModel model, int selectedRow, Set<Cliente> clientes, Set<ObraSocial> obrasSociales) {
+        this.model = model;
+        this.selectedRow = selectedRow;
+        this.clientes = clientes;
+        this.obrasSociales = obrasSociales;
         
+        //Carga las obras sociales del set al combo box de obras sociales
         for (ObraSocial obraSocial : obrasSociales) {
             campo_obra_social.addItem(obraSocial.getObraSocial());
         }
+        
+        //Inicializa los valores de los campos con la informacion del cliente seleccionado en la tabla (fila)
         campo_dia.setText((String) model.getValueAt(selectedRow, 0));
         campo_hora.setText((String) model.getValueAt(selectedRow, 1));
-        campo_nombre.setText((String) model.getValueAt(selectedRow, 2));
-        campo_dni.setText((String) model.getValueAt(selectedRow, 3));
-        campo_obra_social.setSelectedItem((String) model.getValueAt(selectedRow, 4));
-        campo_telefono.setText((String) model.getValueAt(selectedRow, 5));
+        campo_dni.setText((String) model.getValueAt(selectedRow, 2));
+        campo_nombre.setText((String) model.getValueAt(selectedRow, 3));
+        campo_telefono.setText((String) model.getValueAt(selectedRow, 4));
+        campo_obra_social.setSelectedItem((String) model.getValueAt(selectedRow, 5));
         campo_motivo.setText((String) model.getValueAt(selectedRow, 6));
+        
         campo_dia.setEditable(false);
         campo_hora.setEditable(false);
         initComponents();
@@ -111,7 +125,7 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 130, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 430));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

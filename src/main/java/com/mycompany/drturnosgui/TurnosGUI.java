@@ -58,7 +58,7 @@ public class TurnosGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Fecha", "Horario", "Paciente", "DNI", "Obra social", "Telefono", "Motivo"
+                "Fecha", "Horario", "DNI", "Nombre", "Telefono", "Obra social", "Motivo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -147,9 +147,9 @@ public class TurnosGUI extends javax.swing.JFrame {
 
     private void btnAgregarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTurnoActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tblTurnos.getModel();
         int selectedRow = tblTurnos.getSelectedRow();
         if(selectedRow != -1){
+            DefaultTableModel model = (DefaultTableModel) tblTurnos.getModel();
             ModificarTurnosGUI modificarTurnoGUI = new ModificarTurnosGUI(model, selectedRow, clientes, obrasSociales);
             modificarTurnoGUI.setVisible(true);
             modificarTurnoGUI.setLocationRelativeTo(null);
