@@ -83,8 +83,6 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        campo_obra_social.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(campo_obra_social, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 30));
         jPanel1.add(campo_dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 200, 40));
 
