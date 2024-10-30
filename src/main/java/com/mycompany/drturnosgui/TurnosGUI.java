@@ -144,7 +144,10 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Metodo llamado al presionar el boton "Agregar/Modificar"
+     * @param evt 
+     */
     private void btnAgregarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarTurnoActionPerformed
         // TODO add your handling code here:
         int selectedRow = tblTurnos.getSelectedRow();
@@ -158,25 +161,41 @@ public class TurnosGUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnAgregarTurnoActionPerformed
-
+    
+    /**
+     * Metodo llamado al presionar el boton "Pacientes"
+     * @param evt 
+     */
     private void btnPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacientesActionPerformed
         ClientesGUI clientesGUI = new ClientesGUI(clientes, obrasSociales);
         clientesGUI.setVisible(true);
         clientesGUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnPacientesActionPerformed
-
+    
+    /**
+     * Metodo llamado al presionar el boton "Obras sociales"
+     * @param evt 
+     */
     private void btnObrasSocialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrasSocialesActionPerformed
         // TODO add your handling code here:
         ObrasSocialesGUI obrasocialesGUI = new ObrasSocialesGUI(obrasSociales);
         obrasocialesGUI.setVisible(true);
         obrasocialesGUI.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnObrasSocialesActionPerformed
-
+    
+    /**
+     * Metodo llamado al cerrar la ventana
+     * @param evt 
+     */
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btn_cerrarActionPerformed
-
+    
+    /**
+     * Metodo llamado al presionar el boton "Eliminar"
+     * @param evt 
+     */
     private void btnEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTurnoActionPerformed
         // TODO add your handling code here:
         limpiarCamposSeleccionados();
@@ -275,6 +294,11 @@ public class TurnosGUI extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    public void actualizarTabla() {
+        loadTableData(); // Recargar datos en la tabla
     }
     
     private void showError(String message) {

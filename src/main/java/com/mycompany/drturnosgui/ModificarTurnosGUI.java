@@ -13,11 +13,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ModificarTurnosGUI extends javax.swing.JFrame {
     
-    private DefaultTableModel model; //Esto ocasiona el error ya que nunca voy a poder acceder a la tabla de los turnos.
+    private DefaultTableModel model;
     private int selectedRow;
     private Set<ObraSocial> obrasSociales;
     private Set<Cliente> clientes;
-    
 
     /**
      * Constructor ModificarTurnosGUI
@@ -32,6 +31,9 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         this.clientes = clientes;
         this.obrasSociales = obrasSociales;
         
+        //Inicializar componentes de la ventana ModificarTurnosGUI
+        initComponents();
+       
         //Carga las obras sociales del set al combo box de obras sociales
         for (ObraSocial obraSocial : obrasSociales) {
             campo_obra_social.addItem(obraSocial.getObraSocial());
@@ -46,9 +48,11 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         campo_obra_social.setSelectedItem((String) model.getValueAt(selectedRow, 5));
         campo_motivo.setText((String) model.getValueAt(selectedRow, 6));
         
+        //Establecer los campos fecha y hora como no modificables
         campo_dia.setEditable(false);
         campo_hora.setEditable(false);
-        initComponents();
+        
+        
     }
 
 
@@ -74,7 +78,7 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         btn_guardar = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -129,7 +133,11 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Metodo llamado al presionar el boton "Buscar"
+     * @param evt 
+     */
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
         String dniBuscado = campo_dni.getText();
@@ -149,7 +157,11 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btn_buscarActionPerformed
-
+    
+    /**
+     * Metodo llamado al presionar el boton "Guardar"
+     * @param evt 
+     */
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         String nuevoDia = campo_dia.getText();
