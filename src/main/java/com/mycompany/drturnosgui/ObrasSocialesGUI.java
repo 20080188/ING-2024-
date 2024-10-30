@@ -94,7 +94,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 btn_eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 130, -1));
+        jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, 130, -1));
 
         btn_agregar.setBackground(new java.awt.Color(0, 204, 153));
         btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -105,7 +105,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 btn_agregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 130, -1));
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 130, -1));
 
         btn_modificar.setBackground(new java.awt.Color(0, 204, 153));
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
