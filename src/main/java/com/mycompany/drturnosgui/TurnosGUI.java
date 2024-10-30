@@ -159,7 +159,7 @@ public class TurnosGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 570));
+        PanelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 570));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 570));
 

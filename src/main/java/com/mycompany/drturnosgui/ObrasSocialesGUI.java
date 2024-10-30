@@ -76,6 +76,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_obra_social.setGridColor(new java.awt.Color(0, 153, 153));
         tbl_obra_social.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tbl_obra_social);
         if (tbl_obra_social.getColumnModel().getColumnCount() > 0) {
@@ -96,6 +97,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 130, -1));
 
         btn_agregar.setBackground(new java.awt.Color(0, 204, 153));
+        btn_agregar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_agregar.setForeground(new java.awt.Color(255, 255, 255));
         btn_agregar.setText("Agregar");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {

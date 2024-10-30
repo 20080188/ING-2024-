@@ -81,6 +81,7 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         campo_obra_social.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -113,6 +114,9 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         lbl_obra_social.setText("Obra social");
         jPanel1.add(lbl_obra_social, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 100, 30));
 
+        btn_guardar.setBackground(new java.awt.Color(0, 204, 153));
+        btn_guardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_guardar.setForeground(new java.awt.Color(255, 255, 255));
         btn_guardar.setText("Guardar");
         btn_guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +125,9 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 130, 40));
 
+        btn_buscar.setBackground(new java.awt.Color(0, 204, 153));
+        btn_buscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_buscar.setForeground(new java.awt.Color(255, 255, 255));
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

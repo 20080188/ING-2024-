@@ -57,6 +57,8 @@ public class AgregarClienteGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+
         lblDni.setText("DNI:");
 
         fieldDni.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +79,9 @@ public class AgregarClienteGUI extends javax.swing.JFrame {
             }
         });
 
+        btnGuardar.setBackground(new java.awt.Color(0, 204, 153));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
