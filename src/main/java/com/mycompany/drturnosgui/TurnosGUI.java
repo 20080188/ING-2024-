@@ -321,10 +321,6 @@ public class TurnosGUI extends javax.swing.JFrame {
         guardarHashSet(clientes, "clientes.ser");
     }
     
-    public DefaultTableModel copiarTabla(){
-        DefaultTableModel model = (DefaultTableModel) tblTurnos.getModel();
-        return model;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JButton btnAgregarTurno;
