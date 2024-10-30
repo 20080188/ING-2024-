@@ -151,9 +151,10 @@ public class ModificarTurnosGUI extends javax.swing.JFrame {
                 dniRegistrado = true;
                 break;
             }
-            if (!dniRegistrado){
-                JOptionPane.showMessageDialog(this, "Cliente no registrado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+
+        }
+        if (!dniRegistrado){
+            JOptionPane.showMessageDialog(this, "Cliente no registrado", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btn_buscarActionPerformed

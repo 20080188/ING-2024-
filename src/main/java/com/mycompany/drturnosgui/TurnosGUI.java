@@ -28,6 +28,7 @@ public class TurnosGUI extends javax.swing.JFrame {
      
         
     public TurnosGUI() {
+        cargarHashSets();
         initComponents();
         model = (DefaultTableModel) tblTurnos.getModel();
         loadTableData();
@@ -189,6 +190,7 @@ public class TurnosGUI extends javax.swing.JFrame {
      */
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
         // TODO add your handling code here:
+        guardarHashSets();
         dispose();
     }//GEN-LAST:event_btn_cerrarActionPerformed
     
@@ -212,7 +214,9 @@ public class TurnosGUI extends javax.swing.JFrame {
         });
     }
     
-        // Borra los campos de la tabla
+    /**
+     * Borra los campos de la tabla
+     */
     private void limpiarCamposSeleccionados() {
         int selectedRow = tblTurnos.getSelectedRow();
 
@@ -235,7 +239,12 @@ public class TurnosGUI extends javax.swing.JFrame {
         }
     }
     
-        // Borra los campos de la tabla en el archivo 
+    /**
+     * Borra los campos de la tabla en el archivo 
+     * @param fecha
+     * @param hora
+     * @param dni 
+     */
     private void eliminarTurnoEnArchivo(String fecha, String hora, String dni) {
        try {
            BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
@@ -261,7 +270,9 @@ public class TurnosGUI extends javax.swing.JFrame {
        }
     }
     
-        // Carga los datos del archivo a la tabla
+    /**
+     * Carga los datos del archivo a la tabla
+     */
     private void loadTableData() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
@@ -293,11 +304,17 @@ public class TurnosGUI extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Recarga los datos del archivo a la tabla
+     */
     public void actualizarTabla() {
         loadTableData(); // Recargar datos en la tabla
     }
     
+    /**
+     * Muestra un mensaje de error
+     * @param message
+     */
     private void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -326,20 +343,21 @@ public class TurnosGUI extends javax.swing.JFrame {
             return null;
         }
     }
-    public void CargarHashSets(){
-        clientes = cargarHashSet("clientes.ser");
-        if (clientes == null) {
-            clientes = new HashSet<>();
-        }
-        obrasSociales = cargarHashSet("obrasSociales.ser");
-        if (obrasSociales == null) {
-            obrasSociales = new HashSet<>();
-        }
-    }
     
-    public void GuardarHashSets(){
+    /**
+     * Guarda las obras sociales y clientes de los Sets en los archivos obrasSociales.ser y clientes.ser
+     */
+    public void guardarHashSets(){
         guardarHashSet(obrasSociales, "obrasSociales.ser");
         guardarHashSet(clientes, "clientes.ser");
+    }
+    
+    /**
+     * Carga las obras sociales y clientes de los archivos obrasSociales.ser y clientes.ser en los Sets
+     */
+    public void cargarHashSets() {
+        clientes = cargarHashSet("clientes.ser");
+        obrasSociales = cargarHashSet("obrasSociales.ser");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
