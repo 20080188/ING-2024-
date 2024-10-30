@@ -56,8 +56,10 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tbl_obra_social.setBackground(new java.awt.Color(204, 255, 204));
         tbl_obra_social.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null}
@@ -74,6 +76,7 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_obra_social.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tbl_obra_social);
         if (tbl_obra_social.getColumnModel().getColumnCount() > 0) {
             tbl_obra_social.getColumnModel().getColumn(0).setResizable(false);
@@ -81,6 +84,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 400));
 
+        btn_eliminar.setBackground(new java.awt.Color(0, 204, 153));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +95,8 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 130, -1));
 
+        btn_agregar.setBackground(new java.awt.Color(0, 204, 153));
+        btn_agregar.setForeground(new java.awt.Color(255, 255, 255));
         btn_agregar.setText("Agregar");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +105,9 @@ public class ObrasSocialesGUI extends javax.swing.JFrame {
         });
         jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, 130, -1));
 
+        btn_modificar.setBackground(new java.awt.Color(0, 204, 153));
+        btn_modificar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_modificar.setForeground(new java.awt.Color(255, 255, 255));
         btn_modificar.setText("Modificar");
         btn_modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
